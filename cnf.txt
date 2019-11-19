@@ -1,0 +1,5 @@
+S -> ASB 
+A -> aAS a 
+B -> SbS A bb 
+S1 -> S 
+ADS4
