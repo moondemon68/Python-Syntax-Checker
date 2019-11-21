@@ -1,10 +1,9 @@
-a b c
-A1 B1 C1 C2 S S0 X Y
-A1 -> a
-B1 -> b
-C1 -> c
-C2 -> X B1
-S -> A1 C2
-S0 -> A1 C2
-X -> A1 Y | B1 Y
-Y -> C1 | X
++ - ( ) ^ number variable
+Expr Term AddOp MulOp Factor Primary
+Expr -> Term | Expr AddOp Term | AddOp Term
+Term -> Factor | Term MulOp Factor
+Factor -> Primary | Factor ^ Primary
+Primary -> number | variable
+Primary -> ( Expr )
+AddOp -> + | -
+MulOp -> * | /

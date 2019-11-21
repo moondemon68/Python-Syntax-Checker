@@ -1,8 +1,14 @@
-A1 -> a
-B1 -> b
-C1 -> c
-C2 -> X B1
-S -> A1 C2
-S0 -> A1 C2 | a
-X -> A1 Y | B1 Y
-Y -> A1 Y | B1 Y | c
+(1 -> (
+)1 -> )
+AddOp -> + | -
+Expr -> (1 VARIABLE4 | AddOp Term | Expr VARIABLE1 | Factor VARIABLE3 | Term VARIABLE2 | number | variable
+Factor -> (1 VARIABLE4 | Factor VARIABLE3 | number | variable
+MulOp -> * | /
+Primary -> (1 VARIABLE4 | number | variable
+S0 -> (1 VARIABLE4 | AddOp Term | Expr VARIABLE1 | Factor VARIABLE3 | Term VARIABLE2 | number | variable
+Term -> (1 VARIABLE4 | Factor VARIABLE3 | Term VARIABLE2 | number | variable
+VARIABLE1 -> AddOp Term
+VARIABLE2 -> MulOp Factor
+VARIABLE3 -> ^1 Primary
+VARIABLE4 -> Expr )1
+^1 -> ^
