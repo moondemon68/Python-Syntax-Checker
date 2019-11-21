@@ -1,5 +1,8 @@
-S -> ASB 
-A -> aAS a 
-B -> SbS A bb 
-S1 -> S 
-ADS4
+A1 -> a
+B1 -> b
+C1 -> c
+C2 -> X B1
+S -> A1 C2
+S0 -> A1 C2 | a
+X -> A1 Y | B1 Y
+Y -> A1 Y | B1 Y | c

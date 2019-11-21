@@ -1,3 +1,10 @@
-S → A S B
-A → a A S | a | ε 
-B → S b S | A | b b
+a b c
+A1 B1 C1 C2 S S0 X Y
+A1 -> a
+B1 -> b
+C1 -> c
+C2 -> X B1
+S -> A1 C2
+S0 -> A1 C2
+X -> A1 Y | B1 Y
+Y -> C1 | X
