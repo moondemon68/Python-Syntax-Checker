@@ -16,7 +16,7 @@ def requestVariable(var):
         newVar = var.upper() + str(i)
     return newVar
 
-cfgFile = 'cfg.txt'
+cfgFile = 'cfgpiton.txt'
 
 file = open(cfgFile, 'r')
 # Format file: 
@@ -85,8 +85,9 @@ for Production in Productions:
         Productions2.append((Production[0],[Production[1][0]] + [NewVariable]))
         
         for i in range(1, len(Production[1]) - 2):
-            Variables.append(requestVariable(NewVariable))
-            Productions2.append((NewVariable, [Production[1][i], NewVariable(i+1)])) 
+            NewVariable2 = requestVariable(NewVariable) 
+            Variables.append(NewVariable2)
+            Productions2.append((NewVariable, [Production[1][i], NewVariable])) 
         Productions2.append((NewVariable, Production[1][len(Production[1])-2:len(Production[1])]))
 Productions = Productions2
 
@@ -109,7 +110,7 @@ for i in range(500):    # Better safe than sorry
     Productions = Productions2
 
 
-file = open('cnf.txt', 'w')
+file = open('cnfpiton.txt', 'w')
 Productions = sorted(Productions)   # For easier new lines
 Done = []
 
