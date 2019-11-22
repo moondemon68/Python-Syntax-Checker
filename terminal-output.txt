@@ -1,9 +1,9 @@
 
-FALSE -> False
-TRUE -> True
+FALSE -> false
+TRUE -> true
 CLASS -> class
 IS -> is
-NONE -> None
+NONE -> none
 CONTINUE -> continue
 FUNCTION -> def
 RETURN -> return

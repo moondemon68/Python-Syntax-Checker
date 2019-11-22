@@ -1,5 +1,19 @@
-if else elif condition expression openparentheses closeparentheses colon newline
-S IF_STATEMENT EXPRESSION
-S -> IF_STATEMENT
-IF_STATEMENT -> if openparentheses condition closeparentheses colon newline EXPRESSION newline
+if else elif while for in range import as from module rename function condition expression openparentheses closeparentheses colon newline variable integer
+
+S IF_STATEMENT ELIF_STATEMENT ELSE_STATEMENT WHILE_COND FOR_LOOP EXPRESSION IMPORT
+
+S -> IF_STATEMENT | WHILE_COND | FOR_LOOP | IMPORT
+
+IF_STATEMENT -> if openparentheses condition closeparentheses colon newline EXPRESSION newline | IF_STATEMENT ELIF_STATEMENT | IF_STATEMENT ELIF_STATEMENT ELSE_STATEMENT | IF_STATEMENT ELSE_STATEMENT
+
+ELIF_STATEMENT -> ELIF_STATEMENT ELIF_STATEMENT | elif openparentheses condition closeparentheses colon newline EXPRESSION newline
+
+ELSE_STATEMENT -> else colon newline EXPRESSION newline
+
+WHILE_COND -> while openparentheses condition closeparentheses colon newline EXPRESSION newline
+
+FOR_LOOP -> for variable in range openparentheses integer closeparentheses colon newline EXPRESSION newline
+
+IMPORT -> import module | from module import function | IMPORT as rename
+
 EXPRESSION -> EXPRESSION EXPRESSION | expression
