@@ -25,7 +25,7 @@ int main () {
     for (int i=1;i<=n;i++) cin >> a[i];
     
     // Read cnf
-    ifstream fin("cnf.txt");
+    ifstream fin("cnfpiton.txt");
     string line;
     int cnt = 0;
     while (getline(fin, line)) {

@@ -1,0 +1,5 @@
+if else elif condition expression openparentheses closeparentheses colon newline
+S IF_STATEMENT EXPRESSION
+S -> IF_STATEMENT
+IF_STATEMENT -> if openparentheses condition closeparentheses colon newline EXPRESSION newline
+EXPRESSION -> EXPRESSION EXPRESSION | expression
