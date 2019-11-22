@@ -1,8 +1,8 @@
-if else elif while for in range import as from module rename function condition expression openparentheses closeparentheses colon newline variable integer
+if else elif while for in range import as from module rename function def return condition expression openparentheses closeparentheses colon newline variable integer
 
-S IF_STATEMENT ELIF_STATEMENT ELSE_STATEMENT WHILE_COND FOR_LOOP EXPRESSION IMPORT
+S IF_STATEMENT ELIF_STATEMENT ELSE_STATEMENT WHILE_COND FOR_LOOP EXPRESSION IMPORT DEF
 
-S -> IF_STATEMENT | WHILE_COND | FOR_LOOP | IMPORT
+S -> IF_STATEMENT | WHILE_COND | FOR_LOOP | IMPORT | DEF
 
 IF_STATEMENT -> if openparentheses condition closeparentheses colon newline EXPRESSION newline | IF_STATEMENT ELIF_STATEMENT | IF_STATEMENT ELIF_STATEMENT ELSE_STATEMENT | IF_STATEMENT ELSE_STATEMENT
 
@@ -15,5 +15,13 @@ WHILE_COND -> while openparentheses condition closeparentheses colon newline EXP
 FOR_LOOP -> for variable in range openparentheses integer closeparentheses colon newline EXPRESSION newline
 
 IMPORT -> import module | from module import function | IMPORT as rename
+
+DEF -> def openparentheses SINGLE_PARAMETER closeparentheses colon newline EXPRESSION | def openparentheses MULTI_PARAMETER closeparentheses colon newline EXPRESSION | DEF newline | DEF return newline
+
+SINGLE_PARAMETER -> variable
+
+MULTI_PARAMETER -> MULTI_PARAMETER MULTI_PARAMETER | variable comma variable 
+
+/* masih bingung dua parameter di atas digabungin atau nggak jadinya pisah aja soalnya mikirnya ntar kalo digabungin ntar ada outputnya "variable variable variable..." (gak pake koma) bakal accepted juga */
 
 EXPRESSION -> EXPRESSION EXPRESSION | expression
