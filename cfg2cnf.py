@@ -40,8 +40,9 @@ for i in range(len(ReadProductions)):
         Productions.append((LHS, Terms))
 
 # START: Eliminate the start symbol from right-hand sides
-Variables.append('S0')
-Productions = [('S0', [Variables[0]])] + Productions
+if (not 'S0' in Variables):
+    Variables.append('S0')
+    Productions = [('S0', [Variables[0]])] + Productions
 
 # TERM: Eliminate rules with nonsolitary terminals (A -> B c becomes A -> B Z and Z -> c)
 
@@ -112,19 +113,36 @@ file = open('cnf.txt', 'w')
 Productions = sorted(Productions)   # For easier new lines
 Done = []
 
-# Printing the productions list in a good format
+# Printing the productions list in a good format (S0 must be in the first line)
 for Production in Productions:
-    if (Production[0] in Done):
-        if (len(Production[1]) == 1):
-            file.write(' | ' + Production[1][0])
+    if (Production[0] == 'S0'):
+        if (Production[0] in Done):
+            if (len(Production[1]) == 1):
+                file.write(' | ' + Production[1][0])
+            else:
+                file.write(' | ' + Production[1][0] + ' ' + Production[1][1])
         else:
-            file.write(' | ' + Production[1][0] + ' ' + Production[1][1])
-    else:
-        if (Production != Productions[0]):
-            file.write('\n')
-        Done.append(Production[0])
-        file.write(Production[0] + ' -> ')
-        if (len(Production[1]) == 1):
-            file.write(Production[1][0])
+            if (Production == 'S0'):
+                file.write('\n')
+            Done.append(Production[0])
+            file.write(Production[0] + ' -> ')
+            if (len(Production[1]) == 1):
+                file.write(Production[1][0])
+            else:
+                file.write(Production[1][0] + ' ' + Production[1][1])
+for Production in Productions:
+    if (Production[0] != 'S0'):
+        if (Production[0] in Done):
+            if (len(Production[1]) == 1):
+                file.write(' | ' + Production[1][0])
+            else:
+                file.write(' | ' + Production[1][0] + ' ' + Production[1][1])
         else:
-            file.write(Production[1][0] + ' ' + Production[1][1])
+            if (Production != 'S0'):
+                file.write('\n')
+            Done.append(Production[0])
+            file.write(Production[0] + ' -> ')
+            if (len(Production[1]) == 1):
+                file.write(Production[1][0])
+            else:
+                file.write(Production[1][0] + ' ' + Production[1][1])
