@@ -1,0 +1,26 @@
+
+FALSE -> False
+TRUE -> True
+CLASS -> class
+IS -> is
+NONE -> None
+CONTINUE -> continue
+FUNCTION -> def
+RETURN -> return
+WHILELOOP -> while
+FOR -> for
+IN -> in
+BREAK -> break
+AND -> and
+OR -> or
+DEL -> del
+NOT -> not
+WITH -> with
+IF -> if
+ELIF -> elif
+ELSE -> else
+IMPORT -> import
+FROM -> from
+AS -> as
+PASS -> pass
+RAISE -> raise
