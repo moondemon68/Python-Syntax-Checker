@@ -18,7 +18,7 @@ FOR_RANGE -> number | number comma number | number comma number comma number
 
 IMPORT -> import variable | from variable import function | IMPORT as variable
 
-DEF -> def openparentheses SINGLE_PARAMETER closeparentheses colon newline EXPRESSION | def openparentheses MULTI_PARAMETER closeparentheses colon newline EXPRESSION | DEF newline | DEF return newline
+DEF -> def variable openparentheses SINGLE_PARAMETER closeparentheses colon newline EXPRESSION | def variable openparentheses MULTI_PARAMETER closeparentheses colon newline EXPRESSION | def variable openparentheses closeparentheses colon newline EXPRESSION | DEF newline | DEF return newline
 
 SINGLE_PARAMETER -> variable
 
