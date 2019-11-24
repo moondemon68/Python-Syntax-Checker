@@ -38,7 +38,7 @@ for i in range(len(ReadProductions)):
     for j in range(len(RHS)):
         Terms = RHS[j].split(' ')
         Productions.append((LHS, Terms))
-
+print(Productions)
 # START: Eliminate the start symbol from right-hand sides
 if (not 'S0' in Variables):
     Variables.append('S0')
