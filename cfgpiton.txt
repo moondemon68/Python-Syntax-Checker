@@ -12,7 +12,7 @@ ELSE_STATEMENT -> else colon newline EXPRESSION newline
 
 WHILE_COND -> while openparentheses condition closeparentheses colon newline EXPRESSION newline
 
-FOR_LOOP -> for variable in range openparentheses FOR_RANGE closeparentheses colon newline EXPRESSION newline
+FOR_LOOP -> for variable in range openparentheses FOR_RANGE closeparentheses colon newline EXPRESSION newline | for variable in range variable colon newline EXPRESSION newline
 
 FOR_RANGE -> number | number comma number | number comma number comma number
 
