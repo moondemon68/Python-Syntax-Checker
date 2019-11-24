@@ -1,14 +1,14 @@
-if else elif while for in range import as from module rename function def class return condition expression openparentheses closeparentheses colon newline variable number false true or is break continue pass none raise exception
-S IF_STATEMENT ELIF_STATEMENT ELSE_STATEMENT WHILE_COND FOR_LOOP FOR_RANGE IMPORT DEF CLASS RETURN FALSE TRUE OR IS SINGLE_PARAMETER MULTI_PARAMETER EXPRESSION BREAK CONTINUE PASS RAISE EXCEPTION
+if else elif while for in range import as from module rename def class return condition openparentheses closeparentheses colon newline variable number false true or is break continue pass none exception arithmeticop logicalop
+S IF_STATEMENT ELIF_STATEMENT ELSE_STATEMENT WHILE_COND FOR_LOOP FOR_RANGE IMPORT DEFF CLASS RETURN FALSE TRUE OR IS SINGLE_PARAMETER MULTI_PARAMETER EXPRESSION BREAK CONTINUE PASS EXCEPTION CLOSE_EXPRESSION ARITHMETIC_EXPRESSION CONDITIONAL LOGICAL_EXPRESSION
 S -> IF_STATEMENT | WHILE_COND | FOR_LOOP | IMPORT | DEF
-IF_STATEMENT -> if openparentheses condition closeparentheses colon newline EXPRESSION newline | IF_STATEMENT ELIF_STATEMENT | IF_STATEMENT ELIF_STATEMENT ELSE_STATEMENT | IF_STATEMENT ELSE_STATEMENT
-ELIF_STATEMENT -> ELIF_STATEMENT ELIF_STATEMENT | elif openparentheses condition closeparentheses colon newline EXPRESSION newline
+IF_STATEMENT -> if openparentheses condition closeparentheses colon newline EXPRESSION newline | if condition colon newline EXPRESSION newline | IF_STATEMENT ELIF_STATEMENT | IF_STATEMENT ELIF_STATEMENT ELSE_STATEMENT | IF_STATEMENT ELSE_STATEMENT
+ELIF_STATEMENT -> ELIF_STATEMENT ELIF_STATEMENT | elif openparentheses condition closeparentheses colon newline EXPRESSION newline | elif condition colon newline EXPRESSION newline
 ELSE_STATEMENT -> else colon newline EXPRESSION newline
 WHILE_COND -> while openparentheses condition closeparentheses colon newline EXPRESSION newline
 FOR_LOOP -> for variable in range openparentheses FOR_RANGE closeparentheses colon newline EXPRESSION newline
 FOR_RANGE -> number | number comma number | number comma number comma number
-IMPORT -> import variable | from variable import function | IMPORT as variable
-DEF -> def openparentheses SINGLE_PARAMETER closeparentheses colon newline EXPRESSION | def openparentheses MULTI_PARAMETER closeparentheses colon newline EXPRESSION | DEF newline | DEF return newline
+IMPORT -> import variable | from variable import variable | IMPORT as variable
+DEFF -> def openparentheses SINGLE_PARAMETER closeparentheses colon newline EXPRESSION | def openparentheses MULTI_PARAMETER closeparentheses colon newline EXPRESSION | DEF newline | DEF return newline
 CLASS -> class openparentheses SINGLE_PARAMETER closeparentheses colon newline EXPRESSION | class openparentheses MULTI_PARAMETER closeparentheses colon newline EXPRESSION
 RETURN -> return EXPRESSION | return variable | return variable comma variable
 FALSE -> false
@@ -18,8 +18,10 @@ IS -> variable is EXPRESSION
 BREAK -> FOR_LOOP IF_STATEMENT break | WHILE_COND IF_STATEMENT break
 CONTINUE -> FOR_LOOP IF_STATEMENT continue | WHILE_COND IF_STATEMENT continue
 PASS -> IF_STATEMENT pass | FOR_LOOP pass | WHILE_COND pass | DEF pass | CLASS pass
-RAISE -> raise EXCEPTION function
 EXCEPTION -> exception
 SINGLE_PARAMETER -> variable
 MULTI_PARAMETER -> MULTI_PARAMETER MULTI_PARAMETER | variable comma variable | MULTI_PARAMETER comma variable
-EXPRESSION -> EXPRESSION EXPRESSION | expression
+EXPRESSION -> variable | number | openparentheses CLOSE_EXPRESSION | EXPRESSION ARITHMETIC_EXPRESSION
+ARITHMETIC_EXPRESSION -> arithmeticop EXPRESSION
+CLOSE_EXPRESSION -> EXPRESSION closeparentheses
+LOGICAL_EXPRESSION -> EXPRESSION logicalop EXPRESSION
