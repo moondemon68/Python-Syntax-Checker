@@ -6,10 +6,9 @@ Variables = []
 Productions = []
 
 # Helper function to make new variables that haven't yet exist
-def requestVariable(var):
+def requestVariable():
     i = 1
-    if (var[-1] >= '0' and var[-1] <= '9'):
-        var = var[:-1]
+    var = 'A'
     newVar = var.upper() + str(i)
     while (newVar in Variables):
         i = i + 1
@@ -64,7 +63,7 @@ for Production in Productions:
             i = 0
             for Term in Production[1]:
                 if ((Terminal == Term) and (not Terminal in Dictionary)):
-                    Dictionary[Terminal] = requestVariable(Terminal)
+                    Dictionary[Terminal] = requestVariable()
                     Variables.append(Dictionary[Terminal])
                     Productions2.append((Dictionary[Terminal], [Terminal]))
                     Production[1][i] = Dictionary[Terminal]
@@ -80,15 +79,17 @@ for Production in Productions:
     if (len(Production[1]) <= 2):   # No problem
         Productions2.append(Production)
     else:
-        NewVariable = requestVariable(Terminal)
+        NewVariable = requestVariable()
         Variables.append(NewVariable)
         Productions2.append((Production[0],[Production[1][0]] + [NewVariable]))
-        
+        NewVariable2 = NewVariable
+        NewVariable3 = requestVariable()
         for i in range(1, len(Production[1]) - 2):
-            NewVariable2 = requestVariable(NewVariable) 
-            Variables.append(NewVariable2)
-            Productions2.append((NewVariable, [Production[1][i], NewVariable])) 
-        Productions2.append((NewVariable, Production[1][len(Production[1])-2:len(Production[1])]))
+            Variables.append(NewVariable3)
+            Productions2.append((NewVariable2, [Production[1][i], NewVariable3]))
+            NewVariable2 = NewVariable3
+            NewVariable3 = requestVariable()
+        Productions2.append((NewVariable2, Production[1][len(Production[1])-2:len(Production[1])]))
 Productions = Productions2
 
 # DEL: Eliminate ε-rules (if there is an epsilon rule in productions)

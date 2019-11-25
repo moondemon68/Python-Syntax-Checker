@@ -19,10 +19,12 @@ int main () {
 
     /* INPUTS */
     // Read program, and parse it
-    int n;
-    cin >> n;
-    string a[n+5];
-    for (int i=1;i<=n;i++) cin >> a[i];
+    ifstream cin("piton.txt");
+    int n = 1;
+    string a[1005];
+    while (cin >> a[n]) n++;
+    n--;
+    cout << n << endl;
     
     // Read cnf
     ifstream fin("cnfpiton.txt");
