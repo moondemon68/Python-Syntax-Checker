@@ -1,1 +1,1 @@
-if openparentheses variable logicalop number closeparentheses colon newline while openparentheses variable logicalop variable closeparentheses colon newline variable equal variable arithmeticop number
+from variable import variable comma variable newline import variable as variable

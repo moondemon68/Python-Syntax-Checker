@@ -1,5 +1,5 @@
 if else elif while for in range import as from module rename def class return condition openparentheses closeparentheses colon newline variable number false true or is break continue pass none exception arithmeticop logicalop equal comma
-S ALGORITHM IF_STATEMENT ELIF_STATEMENT ELSE_STATEMENT WHILE_STATEMENT FOR_STATEMENT FOR_RANGE IMPORT DEF CLASS RETURN FALSE TRUE OR IS SINGLE_PARAMETER MULTI_PARAMETER EXPRESSION BREAK CONTINUE PASS EXCEPTION CLOSE_EXPRESSION ARITHMETIC_EXPRESSION CONDITIONAL LOGICAL_EXPRESSION
+S ALGORITHM IF_STATEMENT ELIF_STATEMENT ELSE_STATEMENT WHILE_STATEMENT FOR_STATEMENT FOR_RANGE IMPORT_STATEMENT DEF CLASS RETURN FALSE TRUE OR IS SINGLE_PARAMETER MULTI_PARAMETER EXPRESSION BREAK CONTINUE PASS EXCEPTION CLOSE_EXPRESSION ARITHMETIC_EXPRESSION CONDITIONAL LOGICAL_EXPRESSION MULTI_VARIABLE
 S -> ALGORITHM
 ALGORITHM -> newline
 ALGORITHM -> ALGORITHM ALGORITHM
@@ -16,7 +16,11 @@ LOGICAL_EXPRESSION -> EXPRESSION logicalop EXPRESSION | true | false
 # FOR
 ALGORITHM -> FOR_STATEMENT
 FOR_STATEMENT -> for variable in range openparentheses FOR_RANGE closeparentheses colon newline ALGORITHM
-FOR_RANGE -> number | number comma number | number comma number comma number
+FOR_RANGE -> number | number comma number | number comma number comma number | variable | EXPRESSION
 # WHILE
 ALGORITHM -> WHILE_STATEMENT
 WHILE_STATEMENT -> while openparentheses LOGICAL_EXPRESSION closeparentheses colon newline ALGORITHM
+# IMPORT
+ALGORITHM -> IMPORT_STATEMENT
+IMPORT_STATEMENT -> import variable MULTI_VARIABLE | from variable import variable MULTI_VARIABLE | import variable as variable MULTI_VARIABLE | import variable | from variable import variable | import variable as variable
+MULTI_VARIABLE -> comma variable | MULTI_VARIABLE MULTI_VARIABLE
