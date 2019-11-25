@@ -36,3 +36,4 @@ FUNCTION_CALL -> variable openparentheses MULTI_VARIABLE closeparentheses
 ALGORITHM -> CLASS_STATEMENT
 CLASS_STATEMENT -> class variable colon newline ALGORITHM
 ALGORITHM -> pass
+# Try, Except, Raise

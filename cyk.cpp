@@ -7,6 +7,38 @@ using namespace std;
 
 pair<string, pair<string, string>> m[1005];
 
+int findstart(string s, int r) {
+    int l=1,h=r,ans=1;
+    while (l<=h) {
+        int mid = (l+h)/2;
+        if (m[mid].rhs < s) {
+            l=mid+1;
+        } else if (m[mid].rhs == s) {
+            h=mid-1;
+            ans=mid;
+        } else {
+            h=mid-1;
+        }
+    }
+    return ans;
+}
+
+int findend(string s, int r) {
+    int l=1,h=r,ans=1;
+    while (l<=h) {
+        int mid = (l+h)/2;
+        if (m[mid].rhs < s) {
+            l=mid+1;
+        } else if (m[mid].rhs == s) {
+            l=mid+1;
+            ans=mid;
+        } else {
+            h=mid-1;
+        }
+    }
+    return ans;
+}
+
 int main () {
     clock_t start = clock();
     /* INITS */
@@ -49,7 +81,8 @@ int main () {
         }
     }
     int r = cnt;
-
+    
+    sort (m+1, m+r+1);  // binser preprocess
     /* For debugging purposes, this is the productions */
     // for (int i=1;i<=r;i++) {
     //     cout  << i << ' ' << m[i].rhs << " -> ";
@@ -95,8 +128,10 @@ int main () {
         for (int s=1;s<=n-l+1;s++) {
             for (int p=1;p<=l-1;p++) {
                 for (int a=1;a<=r;a++) {
-                    for (int b=1;b<=r;b++) {
-                        for (int c=1;c<=r;c++) {
+                    int bl = findstart(m[a].lhs1, r), br = findend(m[a].lhs1, r);
+                    for (int b=bl;b<=br;b++) {
+                        int cl = findstart(m[a].lhs2, r), cr = findend(m[a].lhs2, r);
+                        for (int c=cl;c<=cr;c++) {
                             if (m[b].rhs == m[a].lhs1 && m[c].rhs == m[a].lhs2) {
                                 if (P[p][s][b] && P[l-p][s+p][c]) P[l][s][a] = 1;
                             }
