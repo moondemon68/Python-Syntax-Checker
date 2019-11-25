@@ -1,7 +1,0 @@
-S0 -> A B
-A -> C D | C F
-B -> c | E B
-C -> a
-D -> b
-E -> c
-F -> A D
