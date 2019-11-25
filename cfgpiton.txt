@@ -1,5 +1,5 @@
-if else elif while for in range import as from module rename def class return condition openparentheses closeparentheses colon newline variable number false true and or is break continue pass none exception arithmeticop logicalop equal comma
-S ALGORITHM IF_STATEMENT ELIF_STATEMENT ELSE_STATEMENT WHILE_STATEMENT FOR_STATEMENT FOR_RANGE IMPORT_STATEMENT DEF CLASS RETURN FALSE TRUE OR IS EXPRESSION BREAK CONTINUE PASS EXCEPTION CLOSE_EXPRESSION ARITHMETIC_EXPRESSION CONDITIONAL LOGICAL_EXPRESSION MULTI_VARIABLE CLOSE_LOGICAL_EXPRESSION COMMA_VARIABLE FUNCTION_STATEMENT FUNCTION_CALL CLASS_STATEMENT
+if else elif while for in range import as from module rename def class return condition openparentheses closeparentheses colon newline variable constant false true and or is break continue pass none exception arithmeticop logicalop equal comma raise not
+S ALGORITHM IF_STATEMENT ELIF_STATEMENT ELSE_STATEMENT WHILE_STATEMENT FOR_STATEMENT FOR_RANGE IMPORT_STATEMENT DEF CLASS RETURN FALSE TRUE OR IS EXPRESSION BREAK CONTINUE PASS EXCEPTION CLOSE_EXPRESSION ARITHMETIC_EXPRESSION CONDITIONAL LOGICAL_EXPRESSION MULTI_VARIABLE CLOSE_LOGICAL_EXPRESSION COMMA_VARIABLE FUNCTION_STATEMENT FUNCTION_CALL CLASS_STATEMENT RAISE_STATEMENT
 # Productions
 S -> ALGORITHM
 ALGORITHM -> newline
@@ -10,23 +10,23 @@ ALGORITHM -> IF_STATEMENT
 IF_STATEMENT -> if openparentheses LOGICAL_EXPRESSION closeparentheses colon newline ALGORITHM | if LOGICAL_EXPRESSION colon newline ALGORITHM | IF_STATEMENT ELIF_STATEMENT | IF_STATEMENT ELIF_STATEMENT ELSE_STATEMENT | IF_STATEMENT ELSE_STATEMENT
 ELIF_STATEMENT -> ELIF_STATEMENT ELIF_STATEMENT | elif openparentheses LOGICAL_EXPRESSION closeparentheses colon newline ALGORITHM | elif LOGICAL_EXPRESSION colon newline ALGORITHM
 ELSE_STATEMENT -> else colon newline ALGORITHM
-EXPRESSION -> true | false | variable | number | openparentheses CLOSE_EXPRESSION | EXPRESSION ARITHMETIC_EXPRESSION
+EXPRESSION -> true | false | variable | constant | openparentheses CLOSE_EXPRESSION | EXPRESSION ARITHMETIC_EXPRESSION
 ARITHMETIC_EXPRESSION -> arithmeticop EXPRESSION
 CLOSE_EXPRESSION -> EXPRESSION closeparentheses
-LOGICAL_EXPRESSION -> EXPRESSION logicalop EXPRESSION | true | false | LOGICAL_EXPRESSION and LOGICAL_EXPRESSION | LOGICAL_EXPRESSION or LOGICAL_EXPRESSION | openparentheses CLOSE_LOGICAL_EXPRESSION
+LOGICAL_EXPRESSION -> EXPRESSION | EXPRESSION logicalop EXPRESSION | true | false | LOGICAL_EXPRESSION and LOGICAL_EXPRESSION | LOGICAL_EXPRESSION or LOGICAL_EXPRESSION | openparentheses CLOSE_LOGICAL_EXPRESSION | not LOGICAL_EXPRESSION
 CLOSE_LOGICAL_EXPRESSION -> LOGICAL_EXPRESSION closeparentheses
 # For
 ALGORITHM -> FOR_STATEMENT
 FOR_STATEMENT -> for variable in range openparentheses FOR_RANGE closeparentheses colon newline ALGORITHM
-FOR_RANGE -> number | number comma number | number comma number comma number | variable | EXPRESSION
+FOR_RANGE -> constant | constant comma constant | constant comma constant comma constant | variable | EXPRESSION
 # While
 ALGORITHM -> WHILE_STATEMENT
 WHILE_STATEMENT -> while openparentheses LOGICAL_EXPRESSION closeparentheses colon newline ALGORITHM
 # Import
 ALGORITHM -> IMPORT_STATEMENT
 IMPORT_STATEMENT -> import MULTI_VARIABLE | from variable import MULTI_VARIABLE | import variable as MULTI_VARIABLE
-MULTI_VARIABLE -> variable COMMA_VARIABLE | variable | number COMMA_VARIABLE | number | EXPRESSION COMMA_VARIABLE | EXPRESSION
-COMMA_VARIABLE -> comma variable | comma number | comma EXPRESSION | COMMA_VARIABLE COMMA_VARIABLE
+MULTI_VARIABLE -> variable COMMA_VARIABLE | variable | constant COMMA_VARIABLE | constant | EXPRESSION COMMA_VARIABLE | EXPRESSION
+COMMA_VARIABLE -> comma variable | comma constant | comma EXPRESSION | COMMA_VARIABLE COMMA_VARIABLE
 # Functions and Procedures
 ALGORITHM -> FUNCTION_STATEMENT
 FUNCTION_STATEMENT -> def variable openparentheses MULTI_VARIABLE closeparentheses colon newline ALGORITHM return MULTI_VARIABLE | def variable openparentheses MULTI_VARIABLE closeparentheses colon newline ALGORITHM | def variable openparentheses MULTI_VARIABLE closeparentheses colon newline return MULTI_VARIABLE | def variable openparentheses MULTI_VARIABLE closeparentheses colon newline return ALGORITHM | def variable openparentheses MULTI_VARIABLE closeparentheses colon newline ALGORITHM return ALGORITHM
@@ -36,4 +36,6 @@ FUNCTION_CALL -> variable openparentheses MULTI_VARIABLE closeparentheses
 ALGORITHM -> CLASS_STATEMENT
 CLASS_STATEMENT -> class variable colon newline ALGORITHM
 ALGORITHM -> pass
-# Try, Except, Raise
+# Raise
+ALGORITHM -> RAISE_STATEMENT
+RAISE_STATEMENT -> raise FUNCTION_CALL

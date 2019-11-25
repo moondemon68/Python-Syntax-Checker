@@ -1,1 +1,1 @@
-def variable openparentheses variable comma variable closeparentheses colon newline variable equal variable arithmeticop variable newline return variable comma variable
+if openparentheses not variable closeparentheses colon newline pass newline 
