@@ -52,10 +52,12 @@ int main () {
     ifstream cin("piton.py");
     string line;
     while (getline(cin, line)) {
+        bool out = 0;
         linenum++;
         istringstream read(line);
         string word;
         while (read >> word) {
+            if (out) continue;
             int p = 0;
             while (p < word.size()) {
                 if (getstring(word, p, p+2) == "\'\'\'" && !commentmode) {
@@ -73,7 +75,10 @@ int main () {
                     continue;
                 }
                 if (getchar(word, p) == '~' && p < word.size()) tokens.pb("arithmeticop");
-                else if (getchar(word, p) == '#') break;    // comment
+                else if (getchar(word, p) == '#') {
+                    out = 1;
+                    break;    // comment
+                }
                 else if (getchar(word, p) == '(') tokens.pb("openparentheses");
                 else if (getchar(word, p) == ')') tokens.pb("closeparentheses");
                 else if (getchar(word, p) == '[') {

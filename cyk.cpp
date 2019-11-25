@@ -52,15 +52,15 @@ int main () {
     }
 
     /* INPUTS */
-    // Read program, and parse it
-    ifstream cin("piton.txt");
+    // Read tokens
+    ifstream cin("token.txt");
     int n = 1;
     while (cin >> a[n]) n++;
     n--;
     cout << n << endl;
     
     // Read cnf
-    ifstream fin("cnfpiton.txt");
+    ifstream fin("cnf.txt");
     string line;
     int cnt = 0;
     while (getline(fin, line)) {

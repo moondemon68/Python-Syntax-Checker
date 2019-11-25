@@ -15,7 +15,7 @@ def requestVariable():
         newVar = var.upper() + str(i)
     return newVar
 
-cfgFile = 'cfgpiton.txt'
+cfgFile = 'cfg.txt'
 
 file = open(cfgFile, 'r')
 # Format file: 
@@ -114,7 +114,7 @@ for i in range(500):    # Better safe than sorry
     Productions = Productions2
 
 
-file = open('cnfpiton.txt', 'w')
+file = open('cnf.txt', 'w')
 Productions = sorted(Productions)   # For easier new lines
 Done = []
 

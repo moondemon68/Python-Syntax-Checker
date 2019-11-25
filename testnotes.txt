@@ -1,0 +1,53 @@
+['variable', 'constant']
+
+BEFORE BINSER:
+12
+AC
+27.843
+
+19
+AC
+98.485
+
+AFTER 1 BINSER
+12
+AC
+1.640
+
+19
+AC
+6.406
+
+AFTER 2 BINSER
+12
+AC
+0.172
+
+19
+AC
+0.656
+
+34
+AC
+39.812
+
+45
+AC
+90.938
+
+80
+WA
+196.031
+
+TESTS
+
+12
+pass pass pass pass pass pass pass pass pass pass pass pass
+19
+def variable openparentheses variable comma variable closeparentheses colon newline variable equal variable arithmeticop variable newline return variable comma variable
+34
+def variable openparentheses variable colon variable closeparentheses colon newline newline newline newline newline newline newline newline newline variable equal variable constant newline if variable openparentheses variable closeparentheses logicalop constant colon newline return variable newline
+45
+def variable openparentheses variable colon variable closeparentheses colon newline newline newline newline newline newline newline newline newline variable equal variable constant newline if variable openparentheses variable closeparentheses logicalop constant colon newline return variable newline elif variable openparentheses variable closeparentheses logicalop constant colon newline pass newline 
+80
+def variable openparentheses variable colon variable closeparentheses colon newline newline newline newline newline newline newline newline newline variable equal variable constant newline if variable openparentheses variable closeparentheses logicalop constant colon newline return variable newline elif variable openparentheses variable closeparentheses logicalop constant colon newline if variable constant logicalop variable colon newline return variable newline variable colon newline return variable newline elif variable openparentheses variable closeparentheses logicalop constant colon newline return variable newline variable colon newline return variable newline newline newline newline

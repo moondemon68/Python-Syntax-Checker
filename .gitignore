@@ -31,5 +31,6 @@
 *.out
 *.app
 
-# Pythons
+# Pythons & editors
 __pycache__
+.vscode
