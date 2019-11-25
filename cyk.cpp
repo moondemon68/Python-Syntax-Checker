@@ -8,7 +8,7 @@ using namespace std;
 pair<string, pair<string, string>> m[1005];
 
 int main () {
-
+    clock_t start = clock();
     /* INITS */
     // Basically memsetting the array
     for (int i=0;i<=1000;i++) {
@@ -113,6 +113,6 @@ int main () {
     }
     if (y) cout << "AC" << endl;
     else cout << "WA" << endl;
-
+    cout << fixed << setprecision(3) << (clock()-start)*1./CLOCKS_PER_SEC << endl;
     return 0;
 }

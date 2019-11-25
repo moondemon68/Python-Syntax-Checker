@@ -32,6 +32,8 @@ for i in range(len(ReadProductions)):
     ReadProductions[i] = ReadProductions[i].replace('\n', '')
 Productions = []
 for i in range(len(ReadProductions)):
+    if (ReadProductions[i][0] == '#'):
+        continue
     LHS = ReadProductions[i].split(' -> ')[0]
     RHS = ReadProductions[i].split(' -> ')[1].split(' | ')
     for j in range(len(RHS)):
