@@ -6,6 +6,8 @@
 using namespace std;
 
 pair<string, pair<string, string>> m[1005];
+string a[1005];
+bool P[505][505][505];
 
 int findstart(string s, int r) {
     int l=1,h=r,ans=1;
@@ -53,7 +55,6 @@ int main () {
     // Read program, and parse it
     ifstream cin("piton.txt");
     int n = 1;
-    string a[1005];
     while (cin >> a[n]) n++;
     n--;
     cout << n << endl;
@@ -112,7 +113,6 @@ int main () {
     // else
     // I is not member of language
 
-    bool P[n+5][n+5][r+5];
     memset (P, 0, sizeof(P));
     for (int s=1;s<=n;s++) {
         for (int v=1;v<=r;v++) {

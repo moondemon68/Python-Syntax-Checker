@@ -110,6 +110,16 @@ int main () {
                     success = 0;
                     cout << "Extra } in line " << linenum << endl;
                 }
+                else if (getstring(word, p, p+1) == "->" && sign(getchar(word, p+2))) {
+                    read >> word;
+                    p=0;
+                    while (!sign(getchar(word, p+1))) p++;
+                    p--;
+                }
+                else if ((getchar(word, p) == '>' && getchar(word, p+1) == '=') || (getchar(word, p) == '<' && getchar(word, p+1) == '=') || (getchar(word, p) == '=' && getchar(word, p+1) == '=') || (getchar(word, p) == '!' && getchar(word, p+1) == '=') || (getchar(word, p) == 'i' && getchar(word, p+1) == 's')) {
+                    tokens.pb("logicalop");
+                    p++;
+                }
                 else if (getchar(word, p) == ',') tokens.pb("comma");
                 else if (getchar(word, p) == ':') tokens.pb("colon");
                 else if (getchar(word, p) == '=') tokens.pb("equal");
@@ -118,11 +128,21 @@ int main () {
                     p++;
                 }
                 else if (getchar(word, p) == '+' || getchar(word, p) == '-' || getchar(word, p) == '*' || getchar(word, p) == '/'|| getchar(word, p) == '%' || getchar(word, p) == '|' || getchar(word, p) == '&') tokens.pb("arithmeticop");
-                else if ((getchar(word, p) == '>' && getchar(word, p+1) == '=') || (getchar(word, p) == '<' && getchar(word, p+1) == '=') || (getchar(word, p) == '=' && getchar(word, p+1) == '=') || (getchar(word, p) == '!' && getchar(word, p+1) == '=') || (getchar(word, p) == 'i' && getchar(word, p+1) == 's')) {
-                    tokens.pb("logicalop");
+                else if (getchar(word, p) == '>' || getchar(word, p) == '<') tokens.pb("logicalop");
+                else if (getchar(word, p) == '\'') {
+                    p++;
+                    while (getchar(word, p) != '\'' && p < word.size()) {
+                        p++;
+                        if (p == word.size()) {
+                            if (read >> word) p = 0; else {
+                                success = 0;
+                                cout << "Unclosed string in line " << linenum << endl;
+                            }
+                        }
+                    }
+                    tokens.pb("constant");
                     p++;
                 }
-                else if (getchar(word, p) == '>' || getchar(word, p) == '<') tokens.pb("logicalop");
                 else if (getstring(word, p, p+1) == "if" && sign(getchar(word, p+2))) {
                     tokens.pb("if");
                     p++;
@@ -224,7 +244,7 @@ int main () {
                     p+=7;
                 }
                 else if (alphabet(getchar(word, p))) {
-                    while (getchar(word, p) != '~' && (alphabet(getchar(word, p)) || number(getchar(word, p)))) {
+                    while (getchar(word, p) != '~' && (alphabet(getchar(word, p)) || number(getchar(word, p)) || getchar(word, p) == '_')) {
                         p++;
                     }
                     p--;
