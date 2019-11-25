@@ -1,1 +1,1 @@
-from variable import variable comma variable newline import variable as variable
+def variable openparentheses variable comma variable closeparentheses colon newline return variable openparentheses variable comma variable closeparentheses

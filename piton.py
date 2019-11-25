@@ -1,5 +1,4 @@
-if (a >= 3):
-    for i in range(2,4):
-        f = a + 3
+def kontol(x, y):
+    return kontol(y, x)
 
-if openparentheses variable logicalop number closeparentheses colon newline for variable in range openparentheses number comma number closeparentheses colon newline variable equal variable arithmeticop number newline
+def variable openparentheses variable comma variable closeparentheses colon newline variable equal variable arithmeticop variable newline return variable comma variable
