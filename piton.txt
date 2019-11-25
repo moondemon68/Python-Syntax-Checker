@@ -1,1 +1,1 @@
-if openparentheses not variable closeparentheses colon newline pass newline 
+with variable openparentheses constant comma constant closeparentheses as variable colon newline variable openparentheses constant closeparentheses newline

@@ -7,32 +7,37 @@ ALGORITHM -> IF_STATEMENT
 IF_STATEMENT -> if openparentheses LOGICAL_EXPRESSION closeparentheses colon newline ALGORITHM | if LOGICAL_EXPRESSION colon newline ALGORITHM | IF_STATEMENT ELIF_STATEMENT | IF_STATEMENT ELIF_STATEMENT ELSE_STATEMENT | IF_STATEMENT ELSE_STATEMENT
 ELIF_STATEMENT -> ELIF_STATEMENT ELIF_STATEMENT | elif openparentheses LOGICAL_EXPRESSION closeparentheses colon newline ALGORITHM | elif LOGICAL_EXPRESSION colon newline ALGORITHM
 ELSE_STATEMENT -> else colon newline ALGORITHM
-EXPRESSION -> true | false | variable | constant | openparentheses CLOSE_EXPRESSION | EXPRESSION ARITHMETIC_EXPRESSION
+# Expression
+EXPRESSION -> true | false | variable | constant | openparentheses CLOSE_EXPRESSION | EXPRESSION ARITHMETIC_EXPRESSION | LOGICAL_EXPRESSION
 ARITHMETIC_EXPRESSION -> arithmeticop EXPRESSION
 CLOSE_EXPRESSION -> EXPRESSION closeparentheses
 LOGICAL_EXPRESSION -> EXPRESSION | EXPRESSION logicalop EXPRESSION | true | false | LOGICAL_EXPRESSION and LOGICAL_EXPRESSION | LOGICAL_EXPRESSION or LOGICAL_EXPRESSION | openparentheses CLOSE_LOGICAL_EXPRESSION | not LOGICAL_EXPRESSION
 CLOSE_LOGICAL_EXPRESSION -> LOGICAL_EXPRESSION closeparentheses
 # For
 ALGORITHM -> FOR_STATEMENT
-FOR_STATEMENT -> for variable in range openparentheses FOR_RANGE closeparentheses colon newline ALGORITHM
+FOR_STATEMENT -> for variable in range openparentheses FOR_RANGE closeparentheses colon newline ALGORITHM | for variable in variable colon newline ALGORITHM
 FOR_RANGE -> constant | constant comma constant | constant comma constant comma constant | variable | EXPRESSION
 # While
 ALGORITHM -> WHILE_STATEMENT
 WHILE_STATEMENT -> while openparentheses LOGICAL_EXPRESSION closeparentheses colon newline ALGORITHM
 # Import
 ALGORITHM -> IMPORT_STATEMENT
-IMPORT_STATEMENT -> import MULTI_VARIABLE | from variable import MULTI_VARIABLE | import variable as MULTI_VARIABLE
+IMPORT_STATEMENT -> import MULTI_VARIABLE | from variable import MULTI_VARIABLE | import variable as variable | from variable import variable as variable
 MULTI_VARIABLE -> variable COMMA_VARIABLE | variable | constant COMMA_VARIABLE | constant | EXPRESSION COMMA_VARIABLE | EXPRESSION
 COMMA_VARIABLE -> comma variable | comma constant | comma EXPRESSION | COMMA_VARIABLE COMMA_VARIABLE
 # Functions and Procedures
 ALGORITHM -> FUNCTION_STATEMENT
-FUNCTION_STATEMENT -> def variable openparentheses MULTI_VARIABLE closeparentheses colon newline ALGORITHM return MULTI_VARIABLE | def variable openparentheses MULTI_VARIABLE closeparentheses colon newline ALGORITHM | def variable openparentheses MULTI_VARIABLE closeparentheses colon newline return MULTI_VARIABLE | def variable openparentheses MULTI_VARIABLE closeparentheses colon newline return ALGORITHM | def variable openparentheses MULTI_VARIABLE closeparentheses colon newline ALGORITHM return ALGORITHM
+FUNCTION_STATEMENT -> def variable openparentheses MULTI_VARIABLE closeparentheses colon newline ALGORITHM return MULTI_VARIABLE | def variable openparentheses MULTI_VARIABLE closeparentheses colon newline ALGORITHM | def variable openparentheses MULTI_VARIABLE closeparentheses colon newline return MULTI_VARIABLE | def variable openparentheses MULTI_VARIABLE closeparentheses colon newline return ALGORITHM | def variable openparentheses MULTI_VARIABLE closeparentheses colon newline ALGORITHM return ALGORITHM | def variable openparentheses closeparentheses colon newline ALGORITHM return MULTI_VARIABLE | def variable openparentheses closeparentheses colon newline ALGORITHM | def variable openparentheses closeparentheses colon newline return MULTI_VARIABLE | def variable openparentheses closeparentheses colon newline return ALGORITHM | def variable openparentheses closeparentheses colon newline ALGORITHM return ALGORITHM
 ALGORITHM -> FUNCTION_CALL
-FUNCTION_CALL -> variable openparentheses MULTI_VARIABLE closeparentheses
+FUNCTION_CALL -> variable openparentheses MULTI_VARIABLE closeparentheses | variable openparentheses closeparentheses
 # Class
 ALGORITHM -> CLASS_STATEMENT
 CLASS_STATEMENT -> class variable colon newline ALGORITHM
+# Pass
 ALGORITHM -> pass
 # Raise
 ALGORITHM -> RAISE_STATEMENT
 RAISE_STATEMENT -> raise FUNCTION_CALL
+# With
+ALGORITHM -> WITH_STATEMENT
+WITH_STATEMENT -> with FUNCTION_CALL as variable colon newline ALGORITHM

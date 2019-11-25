@@ -119,9 +119,7 @@ int main () {
             if (m[v].lhs1 == a[s]) {
                 P[1][s][v] = 1;
             }
-            // cout << P[1][s][v];
         }
-        // cout << endl;
     }
 
     for (int l=2;l<=n;l++) {
