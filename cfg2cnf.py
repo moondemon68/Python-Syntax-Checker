@@ -19,14 +19,10 @@ cfgFile = 'cfgpiton.txt'
 
 file = open(cfgFile, 'r')
 # Format file: 
-# Terminal (all lowercase)
-# Variable (all must start in uppercase letter)
 # Production 1 (RHS -> LHS1 LHS2 | LHS3 LHS4 | LHS5)
 # Production 2
 
 # Read file, and transform it into lists
-Terminals = file.readline().replace('\n', '').split(' ')
-Variables = file.readline().replace('\n', '').split(' ')
 ReadProductions = file.readlines()
 for i in range(len(ReadProductions)):
     ReadProductions[i] = ReadProductions[i].replace('\n', '')
@@ -35,9 +31,14 @@ for i in range(len(ReadProductions)):
     if (ReadProductions[i][0] == '#'):
         continue
     LHS = ReadProductions[i].split(' -> ')[0]
+    if (LHS[0] >= 'A' and LHS[0] <= 'Z' and LHS not in Variables):
+        Variables.append(LHS)
     RHS = ReadProductions[i].split(' -> ')[1].split(' | ')
     for j in range(len(RHS)):
         Terms = RHS[j].split(' ')
+        for term in Terms:
+            if (term >= 'a' and term <= 'z' and term not in Terminals):
+                Terminals.append(term)
         Productions.append((LHS, Terms))
 
 # START: Eliminate the start symbol from right-hand sides
