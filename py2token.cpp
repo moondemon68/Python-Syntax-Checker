@@ -310,6 +310,28 @@ int main () {
         tokens.pb("newline");
     }
 
+    int curline = 1, curpara = 0;
+    string firsttoken = tokens[0];
+    for (int i=0;i<tokens.size();i++) {
+        if (tokens[i] == "newline") {
+            if (curpara > 0) {
+                cout << "Unclosed ( in line " << curline << endl;
+                exit(0);
+            } else if (curpara < 0) {
+                cout << "Extra ) in line " << curline << endl;
+                exit(0);
+            }
+            if (i != 0 && tokens[i-1] != "colon" && (firsttoken == "def" || firsttoken == "if" || firsttoken == "elif" || firsttoken == "else" || firsttoken == "class" || firsttoken == "for" || firsttoken == "while" || firsttoken == "with")) {
+                cout << "Missing colon in line " << curline << endl;
+                exit(0);
+            }
+            curline++;
+            if (i != tokens.size()-1) firsttoken = tokens[i+1];
+        }
+        else if (tokens[i] == "openparentheses") curpara++;
+        else if (tokens[i] == "closeparentheses") curpara--;
+    }
+
     for (int i=0;i<tokens.size();i++) {
         if (tokens[i] == "newline") tokens[i] = "n";
         else if (tokens[i] == "variable") tokens[i] = "v";
