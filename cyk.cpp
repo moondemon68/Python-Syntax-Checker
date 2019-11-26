@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-#define rhs first
-#define lhs1 second.first
-#define lhs2 second.second
+#define lhs first
+#define rhs1 second.first
+#define rhs2 second.second
 #define pb push_back
 using namespace std;
 
@@ -27,46 +27,46 @@ int finder(string s, int r) {
     return ans;
 }
 
-int findstart(string s, int r) {
-    int l=1,h=r,ans=1;
-    while (l<=h) {
-        int mid = (l+h)/2;
-        if (m[mid].rhs < s) {
-            l=mid+1;
-        } else if (m[mid].rhs == s) {
-            h=mid-1;
-            ans=mid;
-        } else {
-            h=mid-1;
-        }
-    }
-    return ans;
-}
+// int findstart(string s, int r) {
+//     int l=1,h=r,ans=1;
+//     while (l<=h) {
+//         int mid = (l+h)/2;
+//         if (m[mid].lhs < s) {
+//             l=mid+1;
+//         } else if (m[mid].lhs == s) {
+//             h=mid-1;
+//             ans=mid;
+//         } else {
+//             h=mid-1;
+//         }
+//     }
+//     return ans;
+// }
 
-int findend(string s, int r) {
-    int l=1,h=r,ans=1;
-    while (l<=h) {
-        int mid = (l+h)/2;
-        if (m[mid].rhs < s) {
-            l=mid+1;
-        } else if (m[mid].rhs == s) {
-            l=mid+1;
-            ans=mid;
-        } else {
-            h=mid-1;
-        }
-    }
-    return ans;
-}
+// int findend(string s, int r) {
+//     int l=1,h=r,ans=1;
+//     while (l<=h) {
+//         int mid = (l+h)/2;
+//         if (m[mid].lhs < s) {
+//             l=mid+1;
+//         } else if (m[mid].lhs == s) {
+//             l=mid+1;
+//             ans=mid;
+//         } else {
+//             h=mid-1;
+//         }
+//     }
+//     return ans;
+// }
 
 int main () {
     clock_t start = clock();
     /* INITS */
     // Basically memsetting the array
     for (int i=0;i<=1000;i++) {
-        m[i].rhs = "~";
-        m[i].lhs1 = "~";
-        m[i].lhs2 = "~";
+        m[i].lhs = "~";
+        m[i].rhs1 = "~";
+        m[i].rhs2 = "~";
     }
 
     /* INPUTS */
@@ -83,8 +83,8 @@ int main () {
     int cnt = 0;
     while (getline(fin, line)) {
         istringstream read(line);
-        string rhs, lhs, arrow;
-        read >> rhs >> arrow;
+        string lhs, lhs, arrow;
+        read >> lhs >> arrow;
         int i = 1;
         cnt++;
         while (read >> lhs) {
@@ -92,9 +92,9 @@ int main () {
                 i=1;
                 cnt++;
             } else {
-                m[cnt].rhs = rhs;
-                if (i == 1) m[cnt].lhs1 = lhs;
-                else m[cnt].lhs2 = lhs;
+                m[cnt].lhs = lhs;
+                if (i == 1) m[cnt].rhs1 = lhs;
+                else m[cnt].rhs2 = lhs;
                 i++;
             }
         }
@@ -102,130 +102,130 @@ int main () {
     int r = cnt;
     
     for (int i=1;i<=r;i++) {
-        if (m[i].rhs == "newline") m[i].rhs = "n";
-        else if (m[i].rhs == "variable") m[i].rhs = "v";
-        else if (m[i].rhs == "equal") m[i].rhs = "e";
-        else if (m[i].rhs == "if") m[i].rhs = "i";
-        else if (m[i].rhs == "return") m[i].rhs = "r";
-        else if (m[i].rhs == "openparentheses") m[i].rhs = "o";
-        else if (m[i].rhs == "closeparentheses") m[i].rhs = "c";
-        else if (m[i].rhs == "colon") m[i].rhs = "co";
-        else if (m[i].rhs == "elif") m[i].rhs = "e";
-        else if (m[i].rhs == "else") m[i].rhs = "el";
-        else if (m[i].rhs == "true") m[i].rhs = "t";
-        else if (m[i].rhs == "false") m[i].rhs = "f";
-        else if (m[i].rhs == "constant") m[i].rhs = "con";
-        else if (m[i].rhs == "arithmeticop") m[i].rhs = "a";
-        else if (m[i].rhs == "logicalop") m[i].rhs = "l";
-        else if (m[i].rhs == "and") m[i].rhs = "an";
-        else if (m[i].rhs == "or") m[i].rhs = "or";
-        else if (m[i].rhs == "not") m[i].rhs = "no";
-        else if (m[i].rhs == "for") m[i].rhs = "fo";
-        else if (m[i].rhs == "in") m[i].rhs = "in";
-        else if (m[i].rhs == "range") m[i].rhs = "ra";
-        else if (m[i].rhs == "comma") m[i].rhs = "com";
-        else if (m[i].rhs == "while") m[i].rhs = "w";
-        else if (m[i].rhs == "import") m[i].rhs = "im";
-        else if (m[i].rhs == "logicalop") m[i].rhs = "l";
-        else if (m[i].rhs == "from") m[i].rhs = "fr";
-        else if (m[i].rhs == "as") m[i].rhs = "as";
-        else if (m[i].rhs == "def") m[i].rhs = "d";
-        else if (m[i].rhs == "class") m[i].rhs = "cl";
-        else if (m[i].rhs == "pass") m[i].rhs = "p";
-        else if (m[i].rhs == "raise") m[i].rhs = "rai";
-        else if (m[i].rhs == "with") m[i].rhs = "wi";
+        if (m[i].lhs == "newline") m[i].lhs = "n";
+        else if (m[i].lhs == "variable") m[i].lhs = "v";
+        else if (m[i].lhs == "equal") m[i].lhs = "e";
+        else if (m[i].lhs == "if") m[i].lhs = "i";
+        else if (m[i].lhs == "return") m[i].lhs = "r";
+        else if (m[i].lhs == "openparentheses") m[i].lhs = "o";
+        else if (m[i].lhs == "closeparentheses") m[i].lhs = "c";
+        else if (m[i].lhs == "colon") m[i].lhs = "co";
+        else if (m[i].lhs == "elif") m[i].lhs = "e";
+        else if (m[i].lhs == "else") m[i].lhs = "el";
+        else if (m[i].lhs == "true") m[i].lhs = "t";
+        else if (m[i].lhs == "false") m[i].lhs = "f";
+        else if (m[i].lhs == "constant") m[i].lhs = "con";
+        else if (m[i].lhs == "arithmeticop") m[i].lhs = "a";
+        else if (m[i].lhs == "logicalop") m[i].lhs = "l";
+        else if (m[i].lhs == "and") m[i].lhs = "an";
+        else if (m[i].lhs == "or") m[i].lhs = "or";
+        else if (m[i].lhs == "not") m[i].lhs = "no";
+        else if (m[i].lhs == "for") m[i].lhs = "fo";
+        else if (m[i].lhs == "in") m[i].lhs = "in";
+        else if (m[i].lhs == "range") m[i].lhs = "ra";
+        else if (m[i].lhs == "comma") m[i].lhs = "com";
+        else if (m[i].lhs == "while") m[i].lhs = "w";
+        else if (m[i].lhs == "import") m[i].lhs = "im";
+        else if (m[i].lhs == "logicalop") m[i].lhs = "l";
+        else if (m[i].lhs == "from") m[i].lhs = "fr";
+        else if (m[i].lhs == "as") m[i].lhs = "as";
+        else if (m[i].lhs == "def") m[i].lhs = "d";
+        else if (m[i].lhs == "class") m[i].lhs = "cl";
+        else if (m[i].lhs == "pass") m[i].lhs = "p";
+        else if (m[i].lhs == "raise") m[i].lhs = "rai";
+        else if (m[i].lhs == "with") m[i].lhs = "wi";
 
-        if (m[i].lhs1 == "newline") m[i].lhs1 = "n";
-        else if (m[i].lhs1 == "variable") m[i].lhs1 = "v";
-        else if (m[i].lhs1 == "equal") m[i].lhs1 = "e";
-        else if (m[i].lhs1 == "if") m[i].lhs1 = "i";
-        else if (m[i].lhs1 == "return") m[i].lhs1 = "r";
-        else if (m[i].lhs1 == "openparentheses") m[i].lhs1 = "o";
-        else if (m[i].lhs1 == "closeparentheses") m[i].lhs1 = "c";
-        else if (m[i].lhs1 == "colon") m[i].lhs1 = "co";
-        else if (m[i].lhs1 == "elif") m[i].lhs1 = "e";
-        else if (m[i].lhs1 == "else") m[i].lhs1 = "el";
-        else if (m[i].lhs1 == "true") m[i].lhs1 = "t";
-        else if (m[i].lhs1 == "false") m[i].lhs1 = "f";
-        else if (m[i].lhs1 == "constant") m[i].lhs1 = "con";
-        else if (m[i].lhs1 == "arithmeticop") m[i].lhs1 = "a";
-        else if (m[i].lhs1 == "logicalop") m[i].lhs1 = "l";
-        else if (m[i].lhs1 == "and") m[i].lhs1 = "an";
-        else if (m[i].lhs1 == "or") m[i].lhs1 = "or";
-        else if (m[i].lhs1 == "not") m[i].lhs1 = "no";
-        else if (m[i].lhs1 == "for") m[i].lhs1 = "fo";
-        else if (m[i].lhs1 == "in") m[i].lhs1 = "in";
-        else if (m[i].lhs1 == "range") m[i].lhs1 = "ra";
-        else if (m[i].lhs1 == "comma") m[i].lhs1 = "com";
-        else if (m[i].lhs1 == "while") m[i].lhs1 = "w";
-        else if (m[i].lhs1 == "import") m[i].lhs1 = "im";
-        else if (m[i].lhs1 == "logicalop") m[i].lhs1 = "l";
-        else if (m[i].lhs1 == "from") m[i].lhs1 = "fr";
-        else if (m[i].lhs1 == "as") m[i].lhs1 = "as";
-        else if (m[i].lhs1 == "def") m[i].lhs1 = "d";
-        else if (m[i].lhs1 == "class") m[i].lhs1 = "cl";
-        else if (m[i].lhs1 == "pass") m[i].lhs1 = "p";
-        else if (m[i].lhs1 == "raise") m[i].lhs1 = "rai";
-        else if (m[i].lhs1 == "with") m[i].lhs1 = "wi";
+        if (m[i].rhs1 == "newline") m[i].rhs1 = "n";
+        else if (m[i].rhs1 == "variable") m[i].rhs1 = "v";
+        else if (m[i].rhs1 == "equal") m[i].rhs1 = "e";
+        else if (m[i].rhs1 == "if") m[i].rhs1 = "i";
+        else if (m[i].rhs1 == "return") m[i].rhs1 = "r";
+        else if (m[i].rhs1 == "openparentheses") m[i].rhs1 = "o";
+        else if (m[i].rhs1 == "closeparentheses") m[i].rhs1 = "c";
+        else if (m[i].rhs1 == "colon") m[i].rhs1 = "co";
+        else if (m[i].rhs1 == "elif") m[i].rhs1 = "e";
+        else if (m[i].rhs1 == "else") m[i].rhs1 = "el";
+        else if (m[i].rhs1 == "true") m[i].rhs1 = "t";
+        else if (m[i].rhs1 == "false") m[i].rhs1 = "f";
+        else if (m[i].rhs1 == "constant") m[i].rhs1 = "con";
+        else if (m[i].rhs1 == "arithmeticop") m[i].rhs1 = "a";
+        else if (m[i].rhs1 == "logicalop") m[i].rhs1 = "l";
+        else if (m[i].rhs1 == "and") m[i].rhs1 = "an";
+        else if (m[i].rhs1 == "or") m[i].rhs1 = "or";
+        else if (m[i].rhs1 == "not") m[i].rhs1 = "no";
+        else if (m[i].rhs1 == "for") m[i].rhs1 = "fo";
+        else if (m[i].rhs1 == "in") m[i].rhs1 = "in";
+        else if (m[i].rhs1 == "range") m[i].rhs1 = "ra";
+        else if (m[i].rhs1 == "comma") m[i].rhs1 = "com";
+        else if (m[i].rhs1 == "while") m[i].rhs1 = "w";
+        else if (m[i].rhs1 == "import") m[i].rhs1 = "im";
+        else if (m[i].rhs1 == "logicalop") m[i].rhs1 = "l";
+        else if (m[i].rhs1 == "from") m[i].rhs1 = "fr";
+        else if (m[i].rhs1 == "as") m[i].rhs1 = "as";
+        else if (m[i].rhs1 == "def") m[i].rhs1 = "d";
+        else if (m[i].rhs1 == "class") m[i].rhs1 = "cl";
+        else if (m[i].rhs1 == "pass") m[i].rhs1 = "p";
+        else if (m[i].rhs1 == "raise") m[i].rhs1 = "rai";
+        else if (m[i].rhs1 == "with") m[i].rhs1 = "wi";
 
-        if (m[i].lhs2 == "newline") m[i].lhs2 = "n";
-        else if (m[i].lhs2 == "variable") m[i].lhs2 = "v";
-        else if (m[i].lhs2 == "equal") m[i].lhs2 = "e";
-        else if (m[i].lhs2 == "if") m[i].lhs2 = "i";
-        else if (m[i].lhs2 == "return") m[i].lhs2 = "r";
-        else if (m[i].lhs2 == "openparentheses") m[i].lhs2 = "o";
-        else if (m[i].lhs2 == "closeparentheses") m[i].lhs2 = "c";
-        else if (m[i].lhs2 == "colon") m[i].lhs2 = "co";
-        else if (m[i].lhs2 == "elif") m[i].lhs2 = "e";
-        else if (m[i].lhs2 == "else") m[i].lhs2 = "el";
-        else if (m[i].lhs2 == "true") m[i].lhs2 = "t";
-        else if (m[i].lhs2 == "false") m[i].lhs2 = "f";
-        else if (m[i].lhs2 == "constant") m[i].lhs2 = "con";
-        else if (m[i].lhs2 == "arithmeticop") m[i].lhs2 = "a";
-        else if (m[i].lhs2 == "logicalop") m[i].lhs2 = "l";
-        else if (m[i].lhs2 == "and") m[i].lhs2 = "an";
-        else if (m[i].lhs2 == "or") m[i].lhs2 = "or";
-        else if (m[i].lhs2 == "not") m[i].lhs2 = "no";
-        else if (m[i].lhs2 == "for") m[i].lhs2 = "fo";
-        else if (m[i].lhs2 == "in") m[i].lhs2 = "in";
-        else if (m[i].lhs2 == "range") m[i].lhs2 = "ra";
-        else if (m[i].lhs2 == "comma") m[i].lhs2 = "com";
-        else if (m[i].lhs2 == "while") m[i].lhs2 = "w";
-        else if (m[i].lhs2 == "import") m[i].lhs2 = "im";
-        else if (m[i].lhs2 == "logicalop") m[i].lhs2 = "l";
-        else if (m[i].lhs2 == "from") m[i].lhs2 = "fr";
-        else if (m[i].lhs2 == "as") m[i].lhs2 = "as";
-        else if (m[i].lhs2 == "def") m[i].lhs2 = "d";
-        else if (m[i].lhs2 == "class") m[i].lhs2 = "cl";
-        else if (m[i].lhs2 == "pass") m[i].lhs2 = "p";
-        else if (m[i].lhs2 == "raise") m[i].lhs2 = "rai";
-        else if (m[i].lhs2 == "with") m[i].lhs2 = "wi";
+        if (m[i].rhs2 == "newline") m[i].rhs2 = "n";
+        else if (m[i].rhs2 == "variable") m[i].rhs2 = "v";
+        else if (m[i].rhs2 == "equal") m[i].rhs2 = "e";
+        else if (m[i].rhs2 == "if") m[i].rhs2 = "i";
+        else if (m[i].rhs2 == "return") m[i].rhs2 = "r";
+        else if (m[i].rhs2 == "openparentheses") m[i].rhs2 = "o";
+        else if (m[i].rhs2 == "closeparentheses") m[i].rhs2 = "c";
+        else if (m[i].rhs2 == "colon") m[i].rhs2 = "co";
+        else if (m[i].rhs2 == "elif") m[i].rhs2 = "e";
+        else if (m[i].rhs2 == "else") m[i].rhs2 = "el";
+        else if (m[i].rhs2 == "true") m[i].rhs2 = "t";
+        else if (m[i].rhs2 == "false") m[i].rhs2 = "f";
+        else if (m[i].rhs2 == "constant") m[i].rhs2 = "con";
+        else if (m[i].rhs2 == "arithmeticop") m[i].rhs2 = "a";
+        else if (m[i].rhs2 == "logicalop") m[i].rhs2 = "l";
+        else if (m[i].rhs2 == "and") m[i].rhs2 = "an";
+        else if (m[i].rhs2 == "or") m[i].rhs2 = "or";
+        else if (m[i].rhs2 == "not") m[i].rhs2 = "no";
+        else if (m[i].rhs2 == "for") m[i].rhs2 = "fo";
+        else if (m[i].rhs2 == "in") m[i].rhs2 = "in";
+        else if (m[i].rhs2 == "range") m[i].rhs2 = "ra";
+        else if (m[i].rhs2 == "comma") m[i].rhs2 = "com";
+        else if (m[i].rhs2 == "while") m[i].rhs2 = "w";
+        else if (m[i].rhs2 == "import") m[i].rhs2 = "im";
+        else if (m[i].rhs2 == "logicalop") m[i].rhs2 = "l";
+        else if (m[i].rhs2 == "from") m[i].rhs2 = "fr";
+        else if (m[i].rhs2 == "as") m[i].rhs2 = "as";
+        else if (m[i].rhs2 == "def") m[i].rhs2 = "d";
+        else if (m[i].rhs2 == "class") m[i].rhs2 = "cl";
+        else if (m[i].rhs2 == "pass") m[i].rhs2 = "p";
+        else if (m[i].rhs2 == "raise") m[i].rhs2 = "rai";
+        else if (m[i].rhs2 == "with") m[i].rhs2 = "wi";
     }
 
     sort (m+1, m+r+1);  // binser preprocess
     /* For debugging purposes, this is the productions */
     // for (int i=1;i<=r;i++) {
-    //     cout  << i << ' ' << m[i].rhs << " -> ";
-    //     cout << m[i].lhs1;
-    //     if (m[i].lhs2 != "~") {
-    //         cout << " " << m[i].lhs2;
+    //     cout  << i << ' ' << m[i].lhs << " -> ";
+    //     cout << m[i].rhs1;
+    //     if (m[i].rhs2 != "~") {
+    //         cout << " " << m[i].rhs2;
     //     }
     //     cout << endl;
     // }
 
     for (int i=1;i<=r;i++) {
         if (v.empty()) {
-            v.pb(m[i].rhs);
+            v.pb(m[i].lhs);
             kiri[0] = 1;
             kanan[0] = 1;
         }
-        else if (m[i].rhs != m[i-1].rhs) {
-            v.pb(m[i].rhs);
-            kiri[finder(m[i].rhs, v.size()-1)] = i;
-            kanan[finder(m[i].rhs, v.size()-1)] = i;
+        else if (m[i].lhs != m[i-1].lhs) {
+            v.pb(m[i].lhs);
+            kiri[finder(m[i].lhs, v.size()-1)] = i;
+            kanan[finder(m[i].lhs, v.size()-1)] = i;
         }
         else {
-            kanan[finder(m[i].rhs, v.size()-1)] = i;
+            kanan[finder(m[i].lhs, v.size()-1)] = i;
         }
     }
 
@@ -255,7 +255,7 @@ int main () {
     memset (P, 0, sizeof(P));
     for (int s=1;s<=n;s++) {
         for (int v=1;v<=r;v++) {
-            if (m[v].lhs1 == a[s]) {
+            if (m[v].rhs1 == a[s]) {
                 P[1][s][v] = 1;
             }
         }
@@ -266,11 +266,11 @@ int main () {
         for (int s=1;s<=n-l+1;s++) {
             for (int p=1;p<=l-1;p++) {
                 for (int a=1;a<=r;a++) {
-                    int bloc = finder(m[a].lhs1, v.size()-1);
+                    int bloc = finder(m[a].rhs1, v.size()-1);
                     for (int b=kiri[bloc];b<=kanan[bloc];b++) {
-                        int cloc = finder(m[a].lhs2, v.size()-1);
+                        int cloc = finder(m[a].rhs2, v.size()-1);
                         for (int c=kiri[cloc];c<=kanan[cloc];c++) {
-                            if (m[b].rhs == m[a].lhs1 && m[c].rhs == m[a].lhs2) {
+                            if (m[b].lhs == m[a].rhs1 && m[c].lhs == m[a].rhs2) {
                                 if (P[p][s][b] && P[l-p][s+p][c]) P[l][s][a] = 1;
                             }
                         }
@@ -282,10 +282,10 @@ int main () {
 
     bool y = 0;
     for (int i=1;i<=r;i++) {
-        if (m[i].rhs == "S0" && P[n][1][i]) y = 1;
+        if (m[i].lhs == "S0" && P[n][1][i]) y = 1;
     }
-    if (y) cout << "AC" << endl;
-    else cout << "WA" << endl;
+    if (y) cout << "Accepted" << endl;
+    else cout << "Syntax Error" << endl;
     cout << fixed << setprecision(3) << (clock()-start)*1./CLOCKS_PER_SEC << endl;
     return 0;
 }
