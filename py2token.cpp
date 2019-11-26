@@ -4,7 +4,7 @@
 using namespace std;
 
 vector<string> tokens;
-string signs = "{}()[]+-*/%!#^|~&=,";
+string signs = "{}()[]+-*/%!#^|~&=,:";
 string alphabets = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 string numbers = "0123456789";
 
@@ -81,6 +81,9 @@ int main () {
                 }
                 else if (getchar(word, p) == '(') tokens.pb("openparentheses");
                 else if (getchar(word, p) == ')') tokens.pb("closeparentheses");
+                else if (getchar(word, p) == '.') {
+                    tokens.pb("dot");
+                }
                 else if (getchar(word, p) == '[') {
                     int cnt = 1;
                     while (p < word.size() && cnt > 0) {
@@ -121,7 +124,7 @@ int main () {
                     while (!sign(getchar(word, p+1))) p++;
                     p--;
                 }
-                else if ((getchar(word, p) == '>' && getchar(word, p+1) == '=') || (getchar(word, p) == '<' && getchar(word, p+1) == '=') || (getchar(word, p) == '=' && getchar(word, p+1) == '=') || (getchar(word, p) == '!' && getchar(word, p+1) == '=') || (getchar(word, p) == 'i' && getchar(word, p+1) == 's')) {
+                else if ((getchar(word, p) == '>' && getchar(word, p+1) == '=') || (getchar(word, p) == '<' && getchar(word, p+1) == '=') || (getchar(word, p) == '=' && getchar(word, p+1) == '=') || (getchar(word, p) == '!' && getchar(word, p+1) == '=')) {
                     tokens.pb("logicalop");
                     p++;
                 }
@@ -148,41 +151,41 @@ int main () {
                     tokens.pb("constant");
                     p++;
                 }
-                else if (getstring(word, p, p+1) == "if" && sign(getchar(word, p+2))) {
-                    tokens.pb("if");
-                    p++;
+                else if (getstring(word, p, p+7) == "continue" && sign(getchar(word, p+8))) {
+                    tokens.pb("variable");
+                    p+=7;
                 }
-                else if (getstring(word, p, p+1) == "or" && sign(getchar(word, p+2))) {
-                    tokens.pb("or");
-                    p++;
+                else if (getstring(word, p, p+5) == "import" && sign(getchar(word, p+6))) {
+                    tokens.pb("import");
+                    p+=5;
                 }
-                else if (getstring(word, p, p+1) == "in" && sign(getchar(word, p+2))) {
-                    tokens.pb("in");
-                    p++;
+                else if (getstring(word, p, p+5) == "return" && sign(getchar(word, p+6))) {
+                    tokens.pb("return");
+                    p+=5;
                 }
-                else if (getstring(word, p, p+1) == "as" && sign(getchar(word, p+2))) {
-                    tokens.pb("as");
-                    p++;
+                else if (getstring(word, p, p+4) == "False" && sign(getchar(word, p+5))) {
+                    tokens.pb("false");
+                    p+=4;
                 }
-                else if (getstring(word, p, p+1) == "is" && sign(getchar(word, p+2))) {
-                    tokens.pb("logicalop");
-                    p++;
+                else if (getstring(word, p, p+4) == "range" && sign(getchar(word, p+5))) {
+                    tokens.pb("range");
+                    p+=4;
                 }
-                else if (getstring(word, p, p+2) == "and" && sign(getchar(word, p+3))) {
-                    tokens.pb("and");
-                    p+=2;
+                else if (getstring(word, p, p+4) == "break" && sign(getchar(word, p+5))) {
+                    tokens.pb("variable");
+                    p+=4;
                 }
-                else if (getstring(word, p, p+2) == "not" && sign(getchar(word, p+3))) {
-                    tokens.pb("not");
-                    p+=2;
+                else if (getstring(word, p, p+4) == "while" && sign(getchar(word, p+5))) {
+                    tokens.pb("while");
+                    p+=4;
                 }
-                else if (getstring(word, p, p+2) == "for" && sign(getchar(word, p+3))) {
-                    tokens.pb("for");
-                    p+=2;
+                else if (getstring(word, p, p+4) == "class" && sign(getchar(word, p+5))) {
+                    tokens.pb("class");
+                    p+=4;
                 }
-                else if (getstring(word, p, p+2) == "def" && sign(getchar(word, p+3))) {
-                    tokens.pb("def");
-                    p+=2;
+                else if (getstring(word, p, p+4) == "raise" && sign(getchar(word, p+5))) {
+                    tokens.pb("raise");
+                    p+=4;
                 }
                 else if (getstring(word, p, p+3) == "elif" && sign(getchar(word, p+4))) {
                     tokens.pb("elif");
@@ -212,48 +215,60 @@ int main () {
                     tokens.pb("constant");
                     p+=3;
                 }
-                else if (getstring(word, p, p+4) == "False" && sign(getchar(word, p+5))) {
-                    tokens.pb("false");
-                    p+=4;
+                else if (getstring(word, p, p+2) == "and" && sign(getchar(word, p+3))) {
+                    tokens.pb("and");
+                    p+=2;
                 }
-                else if (getstring(word, p, p+4) == "range" && sign(getchar(word, p+5))) {
-                    tokens.pb("range");
-                    p+=4;
+                else if (getstring(word, p, p+2) == "not" && sign(getchar(word, p+3))) {
+                    tokens.pb("not");
+                    p+=2;
                 }
-                else if (getstring(word, p, p+4) == "break" && sign(getchar(word, p+5))) {
-                    tokens.pb("variable");
-                    p+=4;
+                else if (getstring(word, p, p+2) == "for" && sign(getchar(word, p+3))) {
+                    tokens.pb("for");
+                    p+=2;
                 }
-                else if (getstring(word, p, p+4) == "while" && sign(getchar(word, p+5))) {
-                    tokens.pb("while");
-                    p+=4;
+                else if (getstring(word, p, p+2) == "def" && sign(getchar(word, p+3))) {
+                    tokens.pb("def");
+                    p+=2;
                 }
-                else if (getstring(word, p, p+4) == "class" && sign(getchar(word, p+5))) {
-                    tokens.pb("class");
-                    p+=4;
+                else if (getstring(word, p, p+1) == "if" && sign(getchar(word, p+2))) {
+                    tokens.pb("if");
+                    p++;
                 }
-                else if (getstring(word, p, p+4) == "raise" && sign(getchar(word, p+5))) {
-                    tokens.pb("raise");
-                    p+=4;
+                else if (getstring(word, p, p+1) == "or" && sign(getchar(word, p+2))) {
+                    tokens.pb("or");
+                    p++;
                 }
-                else if (getstring(word, p, p+5) == "import" && sign(getchar(word, p+6))) {
-                    tokens.pb("import");
-                    p+=5;
+                else if (getstring(word, p, p+1) == "in" && sign(getchar(word, p+2))) {
+                    tokens.pb("in");
+                    p++;
                 }
-                else if (getstring(word, p, p+5) == "return" && sign(getchar(word, p+6))) {
-                    tokens.pb("return");
-                    p+=5;
+                else if (getstring(word, p, p+1) == "as" && sign(getchar(word, p+2))) {
+                    tokens.pb("as");
+                    p++;
                 }
-                else if (getstring(word, p, p+7) == "continue" && sign(getchar(word, p+8))) {
-                    tokens.pb("variable");
-                    p+=7;
+                else if (getstring(word, p, p+1) == "is" && sign(getchar(word, p+2))) {
+                    tokens.pb("logicalop");
+                    p++;
                 }
                 else if (alphabet(getchar(word, p))) {
                     while (getchar(word, p) != '~' && (alphabet(getchar(word, p)) || number(getchar(word, p)) || getchar(word, p) == '_')) {
                         p++;
                     }
                     p--;
-                    tokens.pb("variable");
+                    if (tokens.size() > 2 && tokens[tokens.size()-1] == "dot" && tokens[tokens.size()-2] == "constant" && tokens[tokens.size()-3] == "constant") {
+                        tokens.pop_back();
+                        tokens.pop_back();
+                        tokens.pop_back();
+                    }
+                    else if (tokens.size() > 1 && tokens[tokens.size()-1] == "dot" && tokens[tokens.size()-2] == "constant") {
+                        tokens.pop_back();
+                        tokens.pop_back();
+                    }
+                    else if (tokens.size() > 0 && tokens[tokens.size()-1] == "dot") {
+                        tokens.pop_back();
+                    }
+                    else tokens.pb("variable");
                 }
                 else if (number(getchar(word, p))) {
                     while (number(getchar(word, p))) {
@@ -267,9 +282,11 @@ int main () {
         }
         tokens.pb("newline");
     }
+    ofstream fout("token.txt");
     if (success) {
         for (int i=0;i<tokens.size();i++) {
             cout << tokens[i] << " ";
+            fout << tokens[i] << " ";
         }
     } else {
         cout << "PARSE FAILED" << endl;

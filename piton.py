@@ -1,24 +1,26 @@
-def get_rule_category(rule: dict) -> str:
-    ''' Get rule category in string. This category is also a key for its corresponding dictionary.
-        Input(dict) = rule
-        Output(str) = category of the rule
+from PIL import Image
+import pytesseract
+import time
+import keyboard
+import random
  
-        Example:
-        Input   = {'producer': 'N', 'product': ['people']}
-        Output  = 'terminal'
-    '''
-    rule_product = rule[PRODUCT_KEY]
-    if len(rule_product) == 0:
-        return EPSILON_RULE_KEY
-    elif len(rule_product) == 1:    # here
-        if rule_product[0].islower:
-            return TERMINAL_RULE_KEY
-        else:
-            return UNARY_RULE_KEY
-    elif len(rule_product) == 2:
-        return BINARY_RULE_KEY
-    else:
-        return N_ARIES_RULE_KEY
-'''
-def variable openparentheses variable colon variable closeparentheses colon newline newline newline newline newline newline newline newline newline variable equal variable constant newline if variable openparentheses variable closeparentheses logicalop constant colon newline return variable newline elif variable openparentheses variable closeparentheses logicalop constant colon variable newline if variable constant logicalop variable colon newline return variable newline variable colon newline return variable newline elif variable openparentheses variable closeparentheses logicalop constant colon newline return variable newline variable colon newline return variable newline newline newline newline
-'''
+IMAGE_INPUT_NAME = 'input.jpg'
+FILE_OUTPUT_NAME = 'result.txt'
+ACCEPTED_ASCII_LIST = [x for x in range(32, 127)]
+ 
+def extract_text_from_image():
+    PIPE_ASCII = 124
+    
+    time_start = time.perf_counter()
+    text = pytesseract.image_to_string(Image.open(IMAGE_INPUT_NAME))
+    with open(FILE_OUTPUT_NAME, 'w') as f_out:
+        for c in text:
+            ascii = ord(c)
+            if ascii == PIPE_ASCII:
+                f_out.write('I')
+            elif ascii in ACCEPTED_ASCII_LIST:
+                f_out.write(c)
+            else:
+                f_out.write(' ')
+    time_end = time.perf_counter()
+    print('\nDone! Executed in: {:.2f} seconds'.format(time_end - time_start))

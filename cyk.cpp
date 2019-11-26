@@ -8,6 +8,24 @@ using namespace std;
 pair<string, pair<string, string>> m[1005];
 string a[1005];
 bool P[505][505][505];
+vector<string> v;
+int kiri[1005], kanan[1005];
+
+int finder(string s, int r) {
+    int l=0,h=r,ans=0;
+    while (l<=h) {
+        int mid = (l+h)/2;
+        if (v[mid] < s) {
+            l=mid+1;
+        } else if (v[mid] == s) {
+            h=mid-1;
+            ans=mid;
+        } else {
+            h=mid-1;
+        }
+    }
+    return ans;
+}
 
 int findstart(string s, int r) {
     int l=1,h=r,ans=1;
@@ -94,6 +112,26 @@ int main () {
     //     cout << endl;
     // }
 
+    for (int i=1;i<=r;i++) {
+        if (v.empty()) {
+            v.pb(m[i].rhs);
+            kiri[0] = 1;
+            kanan[0] = 1;
+        }
+        else if (m[i].rhs != m[i-1].rhs) {
+            v.pb(m[i].rhs);
+            kiri[finder(m[i].rhs, v.size()-1)] = i;
+            kanan[finder(m[i].rhs, v.size()-1)] = i;
+        }
+        else {
+            kanan[finder(m[i].rhs, v.size()-1)] = i;
+        }
+    }
+
+    // for (int i=0;i<v.size();i++) {
+    //     cout  << i << ' ' << v[i] << " " << kiri[finder(v[i], v.size()-1)] << " " << kanan[finder(v[i], v.size()-1)] << endl;
+    // }
+
     /* ACTUAL CYK ALGO */
 
     /* From wikipedia: */
@@ -126,10 +164,10 @@ int main () {
         for (int s=1;s<=n-l+1;s++) {
             for (int p=1;p<=l-1;p++) {
                 for (int a=1;a<=r;a++) {
-                    int bl = findstart(m[a].lhs1, r), br = findend(m[a].lhs1, r);
-                    for (int b=bl;b<=br;b++) {
-                        int cl = findstart(m[a].lhs2, r), cr = findend(m[a].lhs2, r);
-                        for (int c=cl;c<=cr;c++) {
+                    int bloc = finder(m[a].lhs1, v.size()-1);
+                    for (int b=kiri[bloc];b<=kanan[bloc];b++) {
+                        int cloc = finder(m[a].lhs2, v.size()-1);
+                        for (int c=kiri[cloc];c<=kanan[cloc];c++) {
                             if (m[b].rhs == m[a].lhs1 && m[c].rhs == m[a].lhs2) {
                                 if (P[p][s][b] && P[l-p][s+p][c]) P[l][s][a] = 1;
                             }

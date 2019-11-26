@@ -1,5 +1,3 @@
-['variable', 'constant']
-
 BEFORE BINSER:
 12
 AC
@@ -35,9 +33,9 @@ AC
 AC
 90.938
 
-80
-WA
-196.031
+75
+AC
+419.186
 
 TESTS
 
