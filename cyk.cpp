@@ -252,40 +252,61 @@ int main () {
     // else
     // I is not member of language
 
-    memset (P, 0, sizeof(P));
-    for (int s=1;s<=n;s++) {
-        for (int v=1;v<=r;v++) {
-            if (m[v].rhs1 == a[s]) {
-                P[1][s][v] = 1;
+    int newlinecnt = 0;
+    for (int i=1;i<=n;i++) {
+        if (a[i] == "n") newlinecnt++;
+    }
+    int newlinecount = 0, tokencount = 0;
+    while (newlinecount < newlinecnt) {
+        int curnewline = 0;
+        for (int i=1;i<=n;i++) {
+            if (a[i] == "n") curnewline++;
+            cout << a[i] << " ";
+            if (newlinecount == curnewline) {
+                tokencount = i;
+                break;
             }
         }
-    }
+        cout << endl;
+        memset (P, 0, sizeof(P));
+        for (int s=1;s<=tokencount;s++) {
+            for (int vt=1;vt<=r;vt++) {
+                if (m[vt].rhs1 == a[s]) {
+                    P[1][s][vt] = 1;
+                }
+            }
+        }
 
-    for (int l=2;l<=n;l++) {
-        cout << l << " " << fixed << setprecision(3) << (clock()-start)*1./CLOCKS_PER_SEC << endl;
-        for (int s=1;s<=n-l+1;s++) {
-            for (int p=1;p<=l-1;p++) {
-                for (int a=1;a<=r;a++) {
-                    int bloc = finder(m[a].rhs1, v.size()-1);
-                    for (int b=kiri[bloc];b<=kanan[bloc];b++) {
-                        int cloc = finder(m[a].rhs2, v.size()-1);
-                        for (int c=kiri[cloc];c<=kanan[cloc];c++) {
-                            if (m[b].lhs == m[a].rhs1 && m[c].lhs == m[a].rhs2) {
-                                if (P[p][s][b] && P[l-p][s+p][c]) P[l][s][a] = 1;
+        for (int l=2;l<=tokencount;l++) {
+            //cout << newlinecount << " " << l << " " << fixed << setprecision(3) << (clock()-start)*1./CLOCKS_PER_SEC << endl;
+            for (int s=1;s<=tokencount-l+1;s++) {
+                for (int p=1;p<=l-1;p++) {
+                    for (int a=1;a<=r;a++) {
+                        int bloc = finder(m[a].rhs1, v.size()-1);
+                        for (int b=kiri[bloc];b<=kanan[bloc];b++) {
+                            int cloc = finder(m[a].rhs2, v.size()-1);
+                            for (int c=kiri[cloc];c<=kanan[cloc];c++) {
+                                if (m[b].lhs == m[a].rhs1 && m[c].lhs == m[a].rhs2) {
+                                    if (P[p][s][b] && P[l-p][s+p][c]) P[l][s][a] = 1;
+                                }
                             }
                         }
                     }
                 }
             }
         }
-    }
 
-    bool y = 0;
-    for (int i=1;i<=r;i++) {
-        if (m[i].lhs == "S0" && P[n][1][i]) y = 1;
+        bool y = 0;
+        for (int i=1;i<=r;i++) {
+            if (m[i].lhs == "S0" && P[tokencount][1][i]) y = 1;
+        }
+        if (!y) {
+            cout << "Syntax Error on line " << newlinecount << endl;
+            exit(0);
+        }
+        newlinecount++;
     }
-    if (y) cout << "Accepted" << endl;
-    else cout << "Syntax Error" << endl;
+    cout << "Accepted" << endl;
     cout << fixed << setprecision(3) << (clock()-start)*1./CLOCKS_PER_SEC << endl;
     return 0;
 }
