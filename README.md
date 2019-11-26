@@ -1,5 +1,4 @@
 # Python-Syntax-Checker
-# B-52 Laporan Bomber
 
 # How To
 ## Compile
