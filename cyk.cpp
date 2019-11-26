@@ -83,18 +83,18 @@ int main () {
     int cnt = 0;
     while (getline(fin, line)) {
         istringstream read(line);
-        string lhs, lhs, arrow;
+        string lhs, rhs, arrow;
         read >> lhs >> arrow;
         int i = 1;
         cnt++;
-        while (read >> lhs) {
-            if (lhs == "|") {
+        while (read >> rhs) {
+            if (rhs == "|") {
                 i=1;
                 cnt++;
             } else {
                 m[cnt].lhs = lhs;
-                if (i == 1) m[cnt].rhs1 = lhs;
-                else m[cnt].rhs2 = lhs;
+                if (i == 1) m[cnt].rhs1 = rhs;
+                else m[cnt].rhs2 = rhs;
                 i++;
             }
         }
