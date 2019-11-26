@@ -54,6 +54,7 @@ int main () {
     while (getline(cin, line)) {
         bool out = 0;
         linenum++;
+        line += " \x90";
         istringstream read(line);
         string word;
         while (read >> word) {
@@ -86,37 +87,57 @@ int main () {
                 }
                 else if (getchar(word, p) == '[') {
                     int cnt = 1;
-                    while (p < word.size() && cnt > 0) {
+                    while (p < word.size() && cnt > 0 && success) {
                         p++;
+                        if (p == word.size()) {
+                            read >> word;
+                            if (word == "\x90") {
+                                success = 0;
+                                break;
+                            }
+                            p = 0;
+                        }
                         if (getchar(word, p) == '[') cnt++;
-                        if (getchar(word, p) == ']') cnt--;                        
+                        if (getchar(word, p) == ']') cnt--;
                     }
-                    if (p < word.size()) tokens.pb("constant");
+                    if (p < word.size() && cnt == 0) tokens.pb("constant");
                     else {
                         success = 0;
                         cout << "A [ is unclosed in line " << linenum << endl;
+                        exit(0);
                     }
                 } 
                 else if (getchar(word, p) == ']') {
                     success = 0;
                     cout << "Extra ] in line " << linenum << endl;
+                    exit(0);
                 }
                 else if (getchar(word, p) == '{') {
                     int cnt = 1;
-                    while (p < word.size() && cnt > 0) {
+                    while (p < word.size() && cnt > 0 && success) {
                         p++;
+                        if (p == word.size()) {
+                            read >> word;
+                            if (word == "\x90") {
+                                success = 0;
+                                break;
+                            }
+                            p = 0;
+                        }
                         if (getchar(word, p) == '{') cnt++;
-                        if (getchar(word, p) == '}') cnt--;                        
+                        if (getchar(word, p) == '}') cnt--;
                     }
-                    if (p < word.size()) tokens.pb("constant");
+                    if (p < word.size() && cnt == 0) tokens.pb("constant");
                     else {
                         success = 0;
                         cout << "A { is unclosed in line " << linenum << endl;
+                        exit(0);
                     }
                 } 
                 else if (getchar(word, p) == '}') {
                     success = 0;
                     cout << "Extra } in line " << linenum << endl;
+                    exit(0);
                 }
                 else if (getstring(word, p, p+1) == "->" && sign(getchar(word, p+2))) {
                     read >> word;
@@ -138,18 +159,24 @@ int main () {
                 else if (getchar(word, p) == '+' || getchar(word, p) == '-' || getchar(word, p) == '*' || getchar(word, p) == '/'|| getchar(word, p) == '%' || getchar(word, p) == '|' || getchar(word, p) == '&') tokens.pb("arithmeticop");
                 else if (getchar(word, p) == '>' || getchar(word, p) == '<') tokens.pb("logicalop");
                 else if (getchar(word, p) == '\'') {
-                    p++;
-                    while (getchar(word, p) != '\'' && p < word.size()) {
+                    while (p < word.size() && success) {
                         p++;
                         if (p == word.size()) {
-                            if (read >> word) p = 0; else {
+                            read >> word;
+                            if (word == "\x90") {
                                 success = 0;
-                                cout << "Unclosed string in line " << linenum << endl;
+                                break;
                             }
+                            p = 0;
                         }
+                        if (getchar(word, p) == '\'') break;
                     }
-                    tokens.pb("constant");
-                    p++;
+                    if (success) {
+                        tokens.pb("constant");
+                    } else {
+                        cout << "Unclosed string in line " << linenum << endl;
+                        exit(0);
+                    }
                 }
                 else if (getstring(word, p, p+7) == "continue" && sign(getchar(word, p+8))) {
                     tokens.pb("variable");
@@ -282,6 +309,42 @@ int main () {
         }
         tokens.pb("newline");
     }
+
+    for (int i=0;i<tokens.size();i++) {
+        if (tokens[i] == "newline") tokens[i] = "n";
+        else if (tokens[i] == "variable") tokens[i] = "v";
+        else if (tokens[i] == "equal") tokens[i] = "e";
+        else if (tokens[i] == "if") tokens[i] = "i";
+        else if (tokens[i] == "return") tokens[i] = "r";
+        else if (tokens[i] == "openparentheses") tokens[i] = "o";
+        else if (tokens[i] == "closeparentheses") tokens[i] = "c";
+        else if (tokens[i] == "colon") tokens[i] = "co";
+        else if (tokens[i] == "elif") tokens[i] = "e";
+        else if (tokens[i] == "else") tokens[i] = "el";
+        else if (tokens[i] == "true") tokens[i] = "t";
+        else if (tokens[i] == "false") tokens[i] = "f";
+        else if (tokens[i] == "constant") tokens[i] = "con";
+        else if (tokens[i] == "arithmeticop") tokens[i] = "a";
+        else if (tokens[i] == "logicalop") tokens[i] = "l";
+        else if (tokens[i] == "and") tokens[i] = "an";
+        else if (tokens[i] == "or") tokens[i] = "or";
+        else if (tokens[i] == "not") tokens[i] = "no";
+        else if (tokens[i] == "for") tokens[i] = "fo";
+        else if (tokens[i] == "in") tokens[i] = "in";
+        else if (tokens[i] == "range") tokens[i] = "ra";
+        else if (tokens[i] == "comma") tokens[i] = "com";
+        else if (tokens[i] == "while") tokens[i] = "w";
+        else if (tokens[i] == "import") tokens[i] = "im";
+        else if (tokens[i] == "logicalop") tokens[i] = "l";
+        else if (tokens[i] == "from") tokens[i] = "fr";
+        else if (tokens[i] == "as") tokens[i] = "as";
+        else if (tokens[i] == "def") tokens[i] = "d";
+        else if (tokens[i] == "class") tokens[i] = "cl";
+        else if (tokens[i] == "pass") tokens[i] = "p";
+        else if (tokens[i] == "raise") tokens[i] = "rai";
+        else if (tokens[i] == "with") tokens[i] = "wi";
+    }
+
     ofstream fout("token.txt");
     if (success) {
         for (int i=0;i<tokens.size();i++) {

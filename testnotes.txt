@@ -33,9 +33,25 @@ AC
 AC
 90.938
 
+SAMPLE 1
 75
 AC
 419.186
+
+with token compression
+75
+AC
+398.968
+
+SAMPLE 2
+127
+AC
+2147.828
+
+SAMPLE 3
+114
+WA
+1751.906
 
 TESTS
 
