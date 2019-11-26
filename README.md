@@ -1,9 +1,14 @@
 # Python-Syntax-Checker
-Tubes 2 TBFO
+# B-52 Laporan Bomber
 
-## How?
-1. Make CFG
-2. CFG -> CNF
-3. Turn python program into tokens
-4. Use CNF to run CYK Algo
-5. Profit.
+# How To
+## Compile
+run compile.bat
+## Run
+run run.bat
+## Change CFG
+modify cfg.txt
+## Change python input file
+modify piton.py
+
+# Bisa? Bisa, Bisa.
