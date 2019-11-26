@@ -1,9 +1,9 @@
 if (a + b > c):
     if (a == 2):
         print(b)
-    elif:
+    else:
         print(a + c)
-elif (c > a + b:
+elif (c > a + b) :
     print(a)
 else:
     print(c)
